@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TextboxComponent } from './components/textbox/textbox.component';
-import { AvatarComponent } from './components/avatar/avatar.component';
-import { ReplyBoxComponent } from './components/reply-box/reply-box.component';
+import { SentCommentComponent } from './components/sent-comment/sent-comment.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, TextboxComponent, AvatarComponent, ReplyBoxComponent],
+  imports: [RouterOutlet, SentCommentComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
