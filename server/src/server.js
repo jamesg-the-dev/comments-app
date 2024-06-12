@@ -87,6 +87,29 @@ app.post(
   },
 );
 
+/**
+ * @param {import('express/lib/request')}
+ */
+app.put('/comments/:commentId', async (req, res) => {
+  let comment;
+
+  const notFound = () =>
+    res.status(404).send({
+      message: 'Comment not found',
+    });
+
+  try {
+    comment = await db.Comment.findByPk(req.params.commentId);
+  } catch (error) {
+    return notFound();
+  }
+  
+  if (!comment) return notFound();
+  console.log('wersda')
+  
+  res.sendStatus(200, comment);
+});
+
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });
