@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="flex">
+  <div class="flex gap-3">
     <app-avatar
       src="assets/avatars/image-amyrobson.png"
       alt="Avatar Image"
@@ -7,14 +7,16 @@
       [size]="45"
       classNames="rounded-circle"
       containerClass="avatar-container"
-    ></app-avatar>
+    />
 
     <app-textbox
-      class="ml-3 flex-grow"
+      class="flex-grow"
+      placeholder="Add a comment..."
       [textareaId]="'textareaId'"
       [textareaName]="'textareaName'"
-      placeholder="Add a comment..."
       [ariaDescribedBy]="'ariaDescribedBy'"
-    ></app-textbox>
+    />
+
+    <app-reply-button />
   </div>
 </div>

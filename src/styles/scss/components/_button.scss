@@ -1,0 +1,29 @@
+/**
+* ideally we should centralise the sizes. Due to time constraints, I will leave it as is
+*/
+
+.btn {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.4em;
+
+  &#{&}--sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  &#{&}--md {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+  }
+
+  &#{&}--lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.25rem;
+  }
+
+  &.btn--primary {
+    background-color: $moderate-blue;
+    color: $white;
+  }
+}
