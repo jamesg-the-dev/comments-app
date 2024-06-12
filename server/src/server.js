@@ -2,11 +2,14 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const db = require('./db');
+const { body, validationResult } = require('express-validator');
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+app.use(express.json());
 app.use(cors());
 
 app.get('/comments', async (req, res) => {
@@ -53,6 +56,36 @@ app.get('/comments', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
+/**
+ * @param {import('express/lib/request')}
+ */
+app.post(
+  '/users/:userId/comment',
+  body('comment').notEmpty(),
+  async (req, res) => {
+    const validation = validationResult(req);
+    if (!validation.isEmpty()) {
+      return res.status(400).json({ errors: validation.array() });
+    }
+    try {
+      const insertObj = {
+        commentText: req.body.comment,
+        userId: req.params.userId,
+      };
+
+      if (req.body.parentCommentId) {
+        insertObj.parentCommentId = req.body.parentCommentId;
+      }
+
+      const comment = await db.Comment.create(insertObj);
+      res.json(comment);
+    } catch (error) {
+      console.error('Error creating comment:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  },
+);
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
