@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReplyButtonComponent } from './reply-button.component';
+import { ReplyButtonComponent } from './comment-submit-button.component';
 
 describe('ReplyButtonComponent', () => {
   let component: ReplyButtonComponent;

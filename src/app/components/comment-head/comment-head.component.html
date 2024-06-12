@@ -1,1 +1,12 @@
-<p>comment-head works!</p>
+<div class="flex items-center">
+  <app-avatar
+    src="assets/avatars/image-amyrobson.png"
+    alt="Avatar Image"
+    title="User's Avatar"
+    [size]="35"
+  />
+
+  <div class="ml-4 font-semibold">{{ username }}</div>
+
+  <div class="ml-4">{{ formatedDate() }}</div>
+</div>
