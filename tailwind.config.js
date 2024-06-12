@@ -1,8 +1,11 @@
+import colors from 'tailwindcss/colors';
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{html,ts}'],
   theme: {
     colors: {
+      ...colors,
       purple: 'hsl(238, 40%, 52%)',
       primary: 'hsl(238, 40%, 52%)',
       'soft-red': 'hsl(358, 79%, 66%)',
