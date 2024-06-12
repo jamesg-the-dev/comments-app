@@ -1,14 +1,17 @@
-<textarea
-  [id]="textareaId"
-  [name]="textareaName"
-  [placeholder]="placeholder"
-  [rows]="rows"
-  [cols]="cols"
-  [disabled]="disabled"
-  [required]="required"
-  [readonly]="readonly"
-  [attr.aria-describedby]="ariaDescribedBy"
-  [attr.aria-required]="required ? 'true' : 'false'"
-  [attr.aria-readonly]="readonly ? 'true' : 'false'"
-  [attr.aria-disabled]="disabled ? 'true' : 'false'"
-></textarea>
+<div class="container">
+  <textarea
+    class="p-3 outline-none border border-gray-300 rounded-md w-full h-full block transition focus-within:border-purple-900"
+    [id]="textareaId"
+    [name]="textareaName"
+    [placeholder]="placeholder"
+    [rows]="rows"
+    [cols]="cols"
+    [disabled]="disabled"
+    [required]="required"
+    [readonly]="readonly"
+    [attr.aria-describedby]="ariaDescribedBy"
+    [attr.aria-required]="required ? 'true' : 'false'"
+    [attr.aria-readonly]="readonly ? 'true' : 'false'"
+    [attr.aria-disabled]="disabled ? 'true' : 'false'"
+  ></textarea>
+</div>
