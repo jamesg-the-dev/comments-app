@@ -1,8 +1,9 @@
-<button class="p-2">
-  <ng-container icon>
-    <fa-icon [icon]="icon" size="xs"></fa-icon>
+<button class="p-2 flex gap-2">
+  <ng-container *ngIf="withText">
+    <ng-content select="[slot=left]"></ng-content>
   </ng-container>
-  <ng-container label>
-    <ng-content></ng-content>
+  <fa-icon [icon]="icon" size="xs"></fa-icon>
+  <ng-container *ngIf="withText">
+    <ng-content select="[slot=right]"></ng-content>
   </ng-container>
 </button>
