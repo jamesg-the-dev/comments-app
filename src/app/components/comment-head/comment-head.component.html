@@ -8,9 +8,15 @@
 
   <div class="ml-4 font-semibold">{{ user.username }}</div>
 
-  <app-badge *ngIf="isCurrentUser" class="ml-2" text="you"/>
+  <app-badge *ngIf="isCurrentUser" class="ml-2" text="you" />
 
   <div class="ml-4">{{ formatedDate() }}</div>
 
-  <app-reply-button class="ml-auto" />
+  <div class="ml-auto">
+    @if (isCurrentUser) {
+      <app-comment-actions (deleteClicked)="deleteComment()" (editClicked)="handleEdit()" />
+    } @else {
+      <app-reply-button class="ml-auto" />
+    }
+  </div>
 </div>

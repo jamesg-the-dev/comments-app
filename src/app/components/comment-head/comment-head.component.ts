@@ -6,6 +6,7 @@ import { User, UserService } from '../../services/user.service';
 import { Comment, CommentService } from '../../services/comment.service';
 import { BadgeComponent } from '../badge/badge.component';
 import { CommonModule } from '@angular/common';
+import { CommentActionsComponent } from '../comment-actions/comment-actions.component';
 
 @Component({
   selector: 'app-comment-head',
@@ -14,6 +15,7 @@ import { CommonModule } from '@angular/common';
     AvatarComponent,
     ReplyButtonComponent,
     BadgeComponent,
+    CommentActionsComponent,
     CommonModule,
   ],
   templateUrl: './comment-head.component.html',
@@ -40,5 +42,13 @@ export class CommentHeadComponent implements OnInit {
 
   formatedDate() {
     return formatDistance(this.comment.createdAt, new Date()) + ' ago';
+  }
+
+  deleteComment() {
+    console.log('deleted', this.comment);
+  }
+
+  handleEdit() {
+    console.log('editing', this.comment);
   }
 }

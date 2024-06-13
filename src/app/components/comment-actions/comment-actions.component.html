@@ -1,0 +1,18 @@
+<div class="flex gap-2">
+  <app-icon-button
+    (clicked)="onDeleteClick()"
+    [icon]="faTrash"
+    [withText]="true"
+    class="text-soft-red"
+  >
+    <ng-container slot="right">Delete</ng-container>
+  </app-icon-button>
+  <app-icon-button
+    (clicked)="onEditClick()"
+    [icon]="faEdit"
+    [withText]="true"
+    class="text-primary font-medium"
+  >
+    <ng-container slot="right">Edit</ng-container>
+  </app-icon-button>
+</div>
