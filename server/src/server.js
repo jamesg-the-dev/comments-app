@@ -12,6 +12,9 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cors());
 
+const notFound = (res, message) => res.status(404).send({ message });
+const commentNotFound = 'Comment not found';
+
 app.get('/comments', async (req, res) => {
   try {
     let comments = await db.Comment.findAll({
@@ -93,18 +96,13 @@ app.post(
 app.put('/comments/:commentId', async (req, res) => {
   let comment;
 
-  const notFound = () =>
-    res.status(404).send({
-      message: 'Comment not found',
-    });
-
   try {
     comment = await db.Comment.findByPk(req.params.commentId);
   } catch (error) {
-    return notFound();
+    return notFound(res, commentNotFound);
   }
 
-  if (!comment) return notFound();
+  if (!comment) return notFound(res);
 
   const update = await comment.update({
     commentText: req.body.comment,
@@ -120,12 +118,29 @@ app.put('/comments/:commentId', async (req, res) => {
 /**
  * @param {import('express/lib/request')}
  */
-app.get('/users/:userId', async (req, res) => {
-  const notFound = () =>
-    res.status(404).send({
-      message: 'User not found',
-    });
+app.delete('/comments/:commentId', async (req, res) => {
+  let comment;
 
+  try {
+    comment = await db.Comment.findByPk(req.params.commentId);
+  } catch (error) {
+    return notFound(res, commentNotFound);
+  }
+
+  if (!comment) return notFound(res, commentNotFound);
+
+  try {
+    await comment.destroy();
+    return res.sendStatus(204);
+  } catch (error) {
+    return res.status(500).send('Failed to delete comment');
+  }
+});
+
+/**
+ * @param {import('express/lib/request')}
+ */
+app.get('/users/:userId', async (req, res) => {
   try {
     const user = await db.User.findByPk(req.params.userId);
     return res.json({
@@ -133,7 +148,7 @@ app.get('/users/:userId', async (req, res) => {
       user,
     });
   } catch (error) {
-    return notFound();
+    return notFound(res, 'User not found');
   }
 });
 
