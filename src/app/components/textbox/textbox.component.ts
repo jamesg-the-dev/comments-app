@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-textbox',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './textbox.component.html',
   styleUrl: './textbox.component.scss',
 })
@@ -24,6 +24,8 @@ export class TextboxComponent implements OnInit {
   value = new FormControl<string>('');
 
   ngOnInit(): void {
+    this.toggleDisabled();
+
     this.value.valueChanges.subscribe((value) => {
       if (value) {
         this.valueChange.emit(value);
@@ -33,5 +35,17 @@ export class TextboxComponent implements OnInit {
 
   onInputChange(value: string) {
     this.valueChange.emit(value);
+  }
+
+  resetValue() {
+    this.value.reset();
+  }
+
+  toggleDisabled() {
+    if (this.disabled) {
+      this.value.disable();
+    } else {
+      this.value.enable();
+    }
   }
 }

@@ -1,4 +1,8 @@
-<div class="container">
+<form
+  (keydown.control.enter)="submit()"
+  (submit)="$event.preventDefault(); submit()"
+  class="container"
+>
   <div class="flex gap-3">
     <app-avatar
       src="assets/avatars/image-amyrobson.png"
@@ -10,6 +14,7 @@
     />
 
     <app-textbox
+      (valueChange)="onValueChange($event)"
       class="flex-grow"
       placeholder="Add a comment..."
       [textareaId]="'textareaId'"
@@ -17,6 +22,6 @@
       [ariaDescribedBy]="'ariaDescribedBy'"
     />
 
-    <app-reply-button />
+    <app-reply-button text="Send" />
   </div>
-</div>
+</form>
