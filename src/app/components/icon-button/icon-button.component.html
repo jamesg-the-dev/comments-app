@@ -1,4 +1,4 @@
-<button class="p-2 flex gap-2">
+<button (click)="onClick()" class="p-2 flex gap-2">
   <ng-container *ngIf="withText">
     <ng-content select="[slot=left]"></ng-content>
   </ng-container>

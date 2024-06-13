@@ -8,8 +8,8 @@ export interface CreatCommentRequest {
   parentCommentId?: number;
 }
 
-export interface UpdateCommentRequest extends CreatCommentRequest {
-  vote: number;
+export interface UpdateCommentRequest extends Partial<CreatCommentRequest> {
+  votes?: number;
 }
 
 export interface CommentUser {
@@ -31,6 +31,11 @@ export interface Comment {
   children?: Comment[];
 }
 
+export interface UpdateCommentResponse {
+  message: string;
+  comment: Comment;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -49,7 +54,10 @@ export class CommentService {
   }
 
   update(commentId: number, data: UpdateCommentRequest) {
-    return this.http.put(`${apiiUrl}comments/${commentId}`, data);
+    return this.http.put<UpdateCommentResponse>(
+      `${apiiUrl}comments/${commentId}`,
+      data,
+    );
   }
 
   delete(id: number) {

@@ -105,9 +105,16 @@ app.put('/comments/:commentId', async (req, res) => {
   }
 
   if (!comment) return notFound();
-  console.log('wersda');
 
-  res.sendStatus(200, comment);
+  const update = await comment.update({
+    commentText: req.body.comment,
+    votes: req.body.votes,
+  });
+
+  return res.json({
+    message: 'Comment updated',
+    comment: update,
+  });
 });
 
 app.listen(port, () => {

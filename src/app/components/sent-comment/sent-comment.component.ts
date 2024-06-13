@@ -5,7 +5,8 @@ import {
   CommentContent,
   CommentHead,
 } from '../comment-body/comment-body.component';
-import { Comment } from '../../services/comment.service';
+import { Comment, CommentService } from '../../services/comment.service';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-sent-comment',
@@ -20,6 +21,8 @@ export class SentCommentComponent implements OnInit {
   content: CommentContent;
   votes: number;
 
+  constructor(private commentService: CommentService) {}
+
   ngOnInit() {
     this.votes = this.comment.votes;
 
@@ -29,5 +32,20 @@ export class SentCommentComponent implements OnInit {
     };
 
     this.content = this.comment.commentText;
+  }
+
+  async updateVote(votes: number) {
+    const { comment } = await lastValueFrom(
+      this.commentService.update(this.comment.id, { votes }),
+    );
+    this.votes = comment.votes;
+  }
+
+  decreaseVote() {
+    this.updateVote(this.votes - 1);
+  }
+
+  increaseVote() {
+    this.updateVote(this.votes + 1);
   }
 }

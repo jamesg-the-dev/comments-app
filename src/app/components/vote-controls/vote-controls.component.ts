@@ -11,13 +11,18 @@ import { IconButtonComponent } from '../icon-button/icon-button.component';
   styleUrl: './vote-controls.component.scss',
 })
 export class VoteControlsComponent {
-  @Output() clicked = new EventEmitter<void>();
+  @Output() increased = new EventEmitter<void>();
+  @Output() decreased = new EventEmitter<void>();
   @Input() count: number = 0; //todo this should be in a service or redux state or something
 
   faPlus = faPlus;
   faMinus = faMinus;
 
-  onClick() {
-    this.clicked.emit();
+  increase() {
+    this.increased.emit();
+  }
+
+  decrease() {
+    this.decreased.emit();
   }
 }
