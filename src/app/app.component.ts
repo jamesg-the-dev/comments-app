@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SentCommentComponent } from './components/sent-comment/sent-comment.component';
 import { ReplyBoxComponent } from './components/reply-box/reply-box.component';
+import { CommentService } from './services/comment.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -12,5 +14,7 @@ import { ReplyBoxComponent } from './components/reply-box/reply-box.component';
 })
 export class AppComponent {
   title = 'comments-app';
-  comments = [1, 2, 3];
+  comments: [1, 2, 3];
+
+  constructor(private commentService: CommentService) {}
 }

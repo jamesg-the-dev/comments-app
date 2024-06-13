@@ -78,8 +78,8 @@ app.post(
         insertObj.parentCommentId = req.body.parentCommentId;
       }
 
-      const comment = await db.Comment.create(insertObj);
-      res.json(comment);
+      await db.Comment.create(insertObj);
+      res.status(200).json({ message: 'Comment created' });
     } catch (error) {
       console.error('Error creating comment:', error);
       res.status(500).send('Internal Server Error');
@@ -103,10 +103,10 @@ app.put('/comments/:commentId', async (req, res) => {
   } catch (error) {
     return notFound();
   }
-  
+
   if (!comment) return notFound();
-  console.log('wersda')
-  
+  console.log('wersda');
+
   res.sendStatus(200, comment);
 });
 
