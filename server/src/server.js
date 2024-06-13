@@ -17,17 +17,27 @@ const commentNotFound = 'Comment not found';
 app.get('/comments', async (req, res) => {
   try {
     let comments = await db.Comment.findAll({
-      include: [db.User],
+      include: [
+        {
+          model: db.User,
+          as: 'user',
+        },
+      ],
       limit: 20,
       where: {
         parentCommentId: null,
       },
     });
     let childComments = await db.Comment.findAll({
-      include: [db.User],
+      include: [
+        {
+          model: db.User,
+          as: 'user',
+        },
+      ],
       where: {
         parentCommentId: {
-          [db.Op.not]: null,
+          [db.Sequelize.Op.not]: null,
         },
       },
     });

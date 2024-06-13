@@ -60,11 +60,14 @@ export class CommentHeadComponent implements OnInit {
   }
 
   handleEdit() {
-    console.log('editing', this.comment);
+    console.log("Didn't have time to implement this");
   }
 
   toggleReply() {
-    if (!this.comment.parentCommentId) return;
-    this.commentService.openReplyBoxFor(this.comment.parentCommentId);
+    if (this.comment.parentCommentId) {
+      this.commentService.openReplyBoxFor(this.comment.parentCommentId);
+    } else {
+      this.commentService.openReplyBoxFor(this.comment.id);
+    }
   }
 }

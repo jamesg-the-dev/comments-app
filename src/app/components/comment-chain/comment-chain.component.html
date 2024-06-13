@@ -5,12 +5,12 @@
     [class.mt-4]="index !== 0"
   />
 
-  @if (comment.children && comment.children.length > 0) {
+  @if ((comment.children && comment.children.length > 0) || comment.replying) {
     <div class="flex">
       <div
         class="bg-light-grayish-blue mt-4 md:mx-10 mx-3 w-2 bg-opacity-25"
       ></div>
-      <div>
+      <div class="w-full">
         @for (reply of comment.children; track reply; let index = $index) {
           <app-sent-comment [comment]="reply" class="block mt-4" />
         }
@@ -26,5 +26,6 @@
     </div>
   }
 } @empty {
+  <!-- TODO add empty state -->
   <div>nothing here...</div>
 }
