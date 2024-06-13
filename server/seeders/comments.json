@@ -1,7 +1,8 @@
 [
   {
     "commentText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nec feugiat in fermentum posuere urna nec tincidunt.",
-    "userId": 1
+    "userId": 1,
+    "votes": 0
   },
   {
     "commentText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fames ac turpis egestas sed tempus urna et pharetra. Integer eget aliquet nibh praesent tristique magna sit amet. Eget felis eget nunc lobortis mattis aliquam faucibus. Non nisi est sit amet facilisis magna etiam. Nunc consequat interdum varius sit amet mattis vulputate. Malesuada proin libero nunc consequat interdum. Velit scelerisque in dictum non consectetur a erat nam.",
