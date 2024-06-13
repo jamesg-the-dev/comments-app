@@ -8,6 +8,8 @@
 
   <div class="ml-4 font-semibold">{{ user.username }}</div>
 
+  <app-badge *ngIf="isCurrentUser" class="ml-2" text="you"/>
+
   <div class="ml-4">{{ formatedDate() }}</div>
 
   <app-reply-button class="ml-auto" />

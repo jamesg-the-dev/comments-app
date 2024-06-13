@@ -4,11 +4,18 @@ import { formatDistance } from 'date-fns';
 import { ReplyButtonComponent } from '../reply-button/reply-button.component';
 import { User, UserService } from '../../services/user.service';
 import { Comment, CommentService } from '../../services/comment.service';
+import { BadgeComponent } from '../badge/badge.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-comment-head',
   standalone: true,
-  imports: [AvatarComponent, ReplyButtonComponent],
+  imports: [
+    AvatarComponent,
+    ReplyButtonComponent,
+    BadgeComponent,
+    CommonModule,
+  ],
   templateUrl: './comment-head.component.html',
   styleUrl: './comment-head.component.scss',
 })
