@@ -20,8 +20,9 @@ import { UserService } from './services/user.service';
 export class AppComponent {
   title = 'comments-app';
   userLoaded = false;
+  avatar = '';
 
-  constructor(private userService: UserService) {
+  constructor(public userService: UserService) {
     this.mockLogin();
   }
 
@@ -29,5 +30,6 @@ export class AppComponent {
   async mockLogin() {
     await this.userService.mockLogIn();
     this.userLoaded = true;
+    this.avatar = this.userService.getCurrentUser()?.profilePic ?? '';
   }
 }

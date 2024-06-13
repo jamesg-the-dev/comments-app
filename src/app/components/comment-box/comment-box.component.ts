@@ -31,6 +31,7 @@ export class CommentBoxComponent {
   @Input() type: CommentButtonTypes = 'Reply';
   @Input() cancellable: boolean = false;
   @Input() parentCommentId: Comment['parentCommentId'];
+  @Input() avatarSrc: Comment['user']['profilePic'] = '';
   commentText = '';
 
   constructor(

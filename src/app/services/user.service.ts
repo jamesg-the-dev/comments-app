@@ -6,7 +6,7 @@ import { apiiUrl, defaultUserId } from '../utilities/globals';
 export interface User {
   id: number;
   username: string;
-  email: string;
+  profilePic: string;
   updatedAt: Date;
   createdAt: Date;
 }
