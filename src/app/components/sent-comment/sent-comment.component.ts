@@ -27,8 +27,8 @@ export class SentCommentComponent implements OnInit {
     this.votes = this.comment.votes;
 
     this.head = {
-      username: this.comment.user.username,
-      date: this.comment.createdAt,
+      user: this.comment.user,
+      comment: this.comment,
     };
 
     this.content = this.comment.commentText;

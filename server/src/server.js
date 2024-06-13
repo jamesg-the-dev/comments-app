@@ -117,6 +117,26 @@ app.put('/comments/:commentId', async (req, res) => {
   });
 });
 
+/**
+ * @param {import('express/lib/request')}
+ */
+app.get('/users/:userId', async (req, res) => {
+  const notFound = () =>
+    res.status(404).send({
+      message: 'User not found',
+    });
+
+  try {
+    const user = await db.User.findByPk(req.params.userId);
+    return res.json({
+      message: 'User found',
+      user,
+    });
+  } catch (error) {
+    return notFound();
+  }
+});
+
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });

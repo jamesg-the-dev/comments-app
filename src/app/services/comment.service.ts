@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { apiiUrl } from '../utilities/globals';
-import { Observable } from 'rxjs';
+import { User } from './user.service';
 
 export interface CreatCommentRequest {
   comment: string;
@@ -12,20 +12,12 @@ export interface UpdateCommentRequest extends Partial<CreatCommentRequest> {
   votes?: number;
 }
 
-export interface CommentUser {
-  id: number;
-  username: string;
-  email: string;
-  updatedAt: Date;
-  createdAt: Date;
-}
-
 export interface Comment {
   id: number;
   commentText: string;
   votes: number;
   parentCommentId?: number;
-  user: CommentUser;
+  user: User;
   createdAt: Date;
   updatedAt: Date;
   children?: Comment[];
@@ -62,5 +54,9 @@ export class CommentService {
 
   delete(id: number) {
     return this.http.delete<void>(`${apiiUrl}comments/${id}`);
+  }
+
+  isCurrentUser(comment: Comment, userId: number) {
+    return userId === comment.user.id;
   }
 }

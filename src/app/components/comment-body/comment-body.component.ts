@@ -1,11 +1,13 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommentHeadComponent } from '../comment-head/comment-head.component';
 import { CommentContentComponent } from '../comment-content/comment-content.component';
 import { subDays } from 'date-fns';
+import { User } from '../../services/user.service';
+import { Comment } from '../../services/comment.service';
 
 export interface CommentHead {
-  username: string;
-  date: Date;
+  user: User;
+  comment: Comment;
 }
 
 export type CommentContent = string;
@@ -20,6 +22,4 @@ export type CommentContent = string;
 export class CommentBodyComponent {
   @Input() head: CommentHead;
   @Input() content: CommentContent;
-
-  date = subDays(new Date(), 1);
 }
