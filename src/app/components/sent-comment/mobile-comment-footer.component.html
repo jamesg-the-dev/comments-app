@@ -12,10 +12,7 @@
         (deleteClicked)="commentService.delete(comment.id)"
       />
     } @else {
-      <app-reply-button
-        (clicked)="commentService.openReplyBoxFor(comment.parentCommentId)"
-        class="ml-auto"
-      />
+      <app-reply-button (clicked)="toggleReply()" class="ml-auto" />
     }
   </div>
 </div>

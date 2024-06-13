@@ -58,6 +58,14 @@ export class MobileCommentFooter {
   increaseVote() {
     this.updateVote(this.votes + 1);
   }
+
+  toggleReply() {
+    if (this.comment.parentCommentId) {
+      this.commentService.openReplyBoxFor(this.comment.parentCommentId);
+    } else {
+      this.commentService.openReplyBoxFor(this.comment.id);
+    }
+  }
 }
 
 @Component({
