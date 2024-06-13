@@ -1,8 +1,21 @@
 @for (comment of comments; track comment; let index = $index) {
-  <app-sent-comment [comment]="comment" class="block" [class.mt-4]="index !== 0" />
+  <app-sent-comment
+    [comment]="comment"
+    class="block"
+    [class.mt-4]="index !== 0"
+  />
 
   @if (comment.children && comment.children.length > 0) {
-    <app-sent-comment [comment]="comment" class="block" [class.mt-4]="index !== 0" />
+    <div class="flex">
+      <div
+        class="bg-light-grayish-blue mt-4 mx-10 w-2 bg-opacity-25 items-stretch"
+      ></div>
+      <div>
+        @for (reply of comment.children; track reply; let index = $index) {
+          <app-sent-comment [comment]="reply" class="block mt-4" />
+        }
+      </div>
+    </div>
   }
 } @empty {
   <div>nothing here...</div>
