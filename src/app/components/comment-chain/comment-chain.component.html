@@ -1,0 +1,9 @@
+@for (comment of comments; track comment; let index = $index) {
+  <app-sent-comment [comment]="comment" class="block" [class.mt-4]="index !== 0" />
+
+  @if (comment.children && comment.children.length > 0) {
+    <app-sent-comment [comment]="comment" class="block" [class.mt-4]="index !== 0" />
+  }
+} @empty {
+  <div>nothing here...</div>
+}

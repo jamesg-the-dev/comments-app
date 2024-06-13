@@ -12,11 +12,20 @@ export interface UpdateCommentRequest extends CreatCommentRequest {
   vote: number;
 }
 
+export interface CommentUser {
+  id: number;
+  username: string;
+  email: string;
+  updatedAt: Date;
+  createdAt: Date;
+}
+
 export interface Comment {
   id: number;
-  comment: string;
+  commentText: string;
   vote: number;
   parentCommentId?: number;
+  user: CommentUser;
   createdAt: Date;
   updatedAt: Date;
   children?: Comment[];
@@ -36,14 +45,14 @@ export class CommentService {
   }
 
   retrieveAll() {
-    return this.http.get<Comment[]>(`${apiiUrl}/comments`);
+    return this.http.get<Comment[]>(`${apiiUrl}comments`);
   }
 
   update(commentId: number, data: UpdateCommentRequest) {
-    return this.http.put(`${apiiUrl}/comments/${commentId}`, data);
+    return this.http.put(`${apiiUrl}comments/${commentId}`, data);
   }
 
   delete(id: number) {
-    return this.http.delete<void>(`${apiiUrl}/resource/${id}`);
+    return this.http.delete<void>(`${apiiUrl}comments/${id}`);
   }
 }
