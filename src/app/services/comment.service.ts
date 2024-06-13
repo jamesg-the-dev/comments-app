@@ -4,12 +4,12 @@ import { apiiUrl } from '../utilities/globals';
 import { User } from './user.service';
 import { BehaviorSubject } from 'rxjs';
 
-export interface CreatCommentRequest {
+export interface CreateCommentRequest {
   comment: string;
   parentCommentId?: number;
 }
 
-export interface UpdateCommentRequest extends Partial<CreatCommentRequest> {
+export interface UpdateCommentRequest extends Partial<CreateCommentRequest> {
   votes?: number;
 }
 
@@ -42,7 +42,7 @@ export class CommentService {
 
   constructor(private http: HttpClient) {}
 
-  create(userId: number, data: CreatCommentRequest) {
+  create(userId: number, data: CreateCommentRequest) {
     return this.http.post<CommonMessage>(
       `${apiiUrl}users/${userId}/comment`,
       data,

@@ -5,7 +5,11 @@ import {
   CommentButtonTypes,
   CommentSubmitButton,
 } from '../comment-submit-button/comment-submit-button.component';
-import { Comment, CommentService } from '../../services/comment.service';
+import {
+  Comment,
+  CommentService,
+  CreateCommentRequest,
+} from '../../services/comment.service';
 import { UserService } from '../../services/user.service';
 import { lastValueFrom } from 'rxjs';
 import { ButtonComponent } from '../button/button.component';
@@ -40,9 +44,11 @@ export class CommentBoxComponent {
     if (!user || !this.commentText) return;
 
     try {
-      await lastValueFrom(
-        this.commentService.create(user.id, { comment: this.commentText }),
-      );
+      const request: CreateCommentRequest = { comment: this.commentText };
+      if (this.parentCommentId) {
+        request.parentCommentId = this.parentCommentId;
+      }
+      await lastValueFrom(this.commentService.create(user.id, request));
 
       this.textbox?.resetValue();
       this.commentService.refreshComments();
