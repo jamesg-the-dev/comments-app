@@ -7,6 +7,7 @@ import { Comment, CommentService } from '../../services/comment.service';
 import { BadgeComponent } from '../badge/badge.component';
 import { CommonModule } from '@angular/common';
 import { CommentActionsComponent } from '../comment-actions/comment-actions.component';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-comment-head',
@@ -44,8 +45,12 @@ export class CommentHeadComponent implements OnInit {
     return formatDistance(this.comment.createdAt, new Date()) + ' ago';
   }
 
-  deleteComment() {
-    console.log('deleted', this.comment);
+  //todo I think a better approach would be to splice the comments array instead of refreshing the whole lot. Leaving this here for due to time constraints
+  async deleteComment() {
+    try {
+      await lastValueFrom(this.commentService.delete(this.comment.id));
+      this.commentService.refreshComments();
+    } catch (error) {}
   }
 
   handleEdit() {

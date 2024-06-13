@@ -16,7 +16,8 @@ export class CommentChainComponent implements OnInit {
   constructor(private commentService: CommentService) {}
 
   ngOnInit() {
-    this.commentService.retrieveAll().subscribe((comments) => {
+    this.commentService.refreshComments();
+    this.commentService.comments.subscribe((comments) => {
       this.comments = comments;
     });
   }

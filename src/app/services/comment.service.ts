@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { apiiUrl } from '../utilities/globals';
 import { User } from './user.service';
+import { BehaviorSubject } from 'rxjs';
 
 export interface CreatCommentRequest {
   comment: string;
@@ -35,6 +36,9 @@ type CommonMessage = { message: string };
   providedIn: 'root',
 })
 export class CommentService {
+  private comments$ = new BehaviorSubject<Comment[]>([]);
+  comments = this.comments$.asObservable();
+
   constructor(private http: HttpClient) {}
 
   create(userId: number, data: CreatCommentRequest) {
@@ -61,5 +65,11 @@ export class CommentService {
 
   isCurrentUser(comment: Comment, userId: number) {
     return userId === comment.user.id;
+  }
+
+  refreshComments() {
+    this.retrieveAll().subscribe((comments) => {
+      this.comments$.next(comments);
+    });
   }
 }

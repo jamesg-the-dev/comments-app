@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SentCommentComponent } from './components/sent-comment/sent-comment.component';
 import { ReplyBoxComponent } from './components/reply-box/reply-box.component';
 import { CommentChainComponent } from './components/comment-chain/comment-chain.component';
 import { CommonModule } from '@angular/common';
 import { UserService } from './services/user.service';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
