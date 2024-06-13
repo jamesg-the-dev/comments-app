@@ -22,6 +22,18 @@
       [ariaDescribedBy]="'ariaDescribedBy'"
     />
 
-    <app-reply-button text="Send" />
+    <div>
+      <app-reply-button [text]="type" class="block" />
+
+      @if (cancellable) {
+        <app-button
+          (clicked)="onCancelClick()"
+          buttonType="tertiary"
+          class="text-soft-red block mt-2 text-center"
+        >
+          Cancel
+        </app-button>
+      }
+    </div>
   </div>
 </form>

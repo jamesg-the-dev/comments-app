@@ -56,4 +56,9 @@ export class CommentHeadComponent implements OnInit {
   handleEdit() {
     console.log('editing', this.comment);
   }
+
+  toggleReply() {
+    if (!this.comment.parentCommentId) return;
+    this.commentService.openReplyBoxFor(this.comment.parentCommentId);
+  }
 }

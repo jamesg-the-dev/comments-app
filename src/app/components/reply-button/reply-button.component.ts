@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { faReply } from '@fortawesome/free-solid-svg-icons';
 
@@ -10,5 +10,10 @@ import { faReply } from '@fortawesome/free-solid-svg-icons';
   styleUrl: './reply-button.component.scss',
 })
 export class ReplyButtonComponent {
+  @Output() clicked = new EventEmitter<void>();
   faReply = faReply;
+
+  handleClick() {
+    this.clicked.emit();
+  }
 }

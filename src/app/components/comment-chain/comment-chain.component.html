@@ -14,6 +14,14 @@
         @for (reply of comment.children; track reply; let index = $index) {
           <app-sent-comment [comment]="reply" class="block mt-4" />
         }
+        @if (comment.replying) {
+          <app-comment-box
+            type="Reply"
+            class="mt-2 block"
+            [cancellable]="true"
+            [parentCommentId]="comment.id"
+          />
+        }
       </div>
     </div>
   }

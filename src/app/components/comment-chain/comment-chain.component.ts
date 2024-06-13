@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { SentCommentComponent } from '../sent-comment/sent-comment.component';
-import { Observable } from 'rxjs';
 import { Comment, CommentService } from '../../services/comment.service';
+import { CommentBoxComponent } from '../comment-box/comment-box.component';
 
 @Component({
   selector: 'app-comment-chain',
   standalone: true,
-  imports: [SentCommentComponent],
+  imports: [SentCommentComponent, CommentBoxComponent],
   templateUrl: './comment-chain.component.html',
   styleUrl: './comment-chain.component.scss',
 })
@@ -17,7 +17,7 @@ export class CommentChainComponent implements OnInit {
 
   ngOnInit() {
     this.commentService.refreshComments();
-    this.commentService.comments.subscribe((comments) => {
+    this.commentService._comments.subscribe((comments) => {
       this.comments = comments;
     });
   }

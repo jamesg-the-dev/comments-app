@@ -19,6 +19,7 @@ export interface Comment {
   votes: number;
   parentCommentId?: number;
   user: User;
+  replying?: boolean;
   createdAt: Date;
   updatedAt: Date;
   children?: Comment[];
@@ -37,7 +38,7 @@ type CommonMessage = { message: string };
 })
 export class CommentService {
   private comments$ = new BehaviorSubject<Comment[]>([]);
-  comments = this.comments$.asObservable();
+  _comments = this.comments$.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -71,5 +72,31 @@ export class CommentService {
     this.retrieveAll().subscribe((comments) => {
       this.comments$.next(comments);
     });
+  }
+
+  get comments() {
+    return this.comments$.value;
+  }
+
+  private getParentCommentIndex(parentCommentId: Comment['parentCommentId']) {
+    const parentCommentIndex = this.comments.findIndex(
+      (comment) => comment.id === parentCommentId,
+    );
+
+    if (parentCommentIndex === -1) {
+      throw new Error('Parent comment not found');
+    }
+
+    return parentCommentIndex;
+  }
+
+  openReplyBoxFor(commentParentId: Comment['parentCommentId']) {
+    const index = this.getParentCommentIndex(commentParentId);
+    this.comments[index].replying = true;
+  }
+
+  closeReplyBoxFor(commentParentId: Comment['parentCommentId']) {
+    const index = this.getParentCommentIndex(commentParentId);
+    this.comments[index].replying = false;
   }
 }

@@ -14,9 +14,12 @@
 
   <div class="ml-auto">
     @if (isCurrentUser) {
-      <app-comment-actions (deleteClicked)="deleteComment()" (editClicked)="handleEdit()" />
+      <app-comment-actions
+        (deleteClicked)="deleteComment()"
+        (editClicked)="handleEdit()"
+      />
     } @else {
-      <app-reply-button class="ml-auto" />
+      <app-reply-button (clicked)="toggleReply()" class="ml-auto" />
     }
   </div>
 </div>

@@ -26,4 +26,10 @@
     background-color: $moderate-blue;
     color: $white;
   }
+
+  &.btn--tertiary {
+    background-color: transparent;
+    color: inherit;
+    text-decoration: underline;
+  }
 }
