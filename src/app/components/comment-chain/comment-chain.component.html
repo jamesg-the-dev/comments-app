@@ -8,7 +8,7 @@
   @if (comment.children && comment.children.length > 0) {
     <div class="flex">
       <div
-        class="bg-light-grayish-blue mt-4 mx-10 w-2 bg-opacity-25 items-stretch"
+        class="bg-light-grayish-blue mt-4 md:mx-10 mx-3 w-2 bg-opacity-25"
       ></div>
       <div>
         @for (reply of comment.children; track reply; let index = $index) {

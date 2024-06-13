@@ -12,14 +12,16 @@
 
   <div class="ml-4">{{ formatedDate() }}</div>
 
-  <div class="ml-auto">
-    @if (isCurrentUser) {
-      <app-comment-actions
-        (deleteClicked)="deleteComment()"
-        (editClicked)="handleEdit()"
-      />
-    } @else {
-      <app-reply-button (clicked)="toggleReply()" class="ml-auto" />
-    }
-  </div>
+  @if (!isSmallScreen) {
+    <div class="ml-auto">
+      @if (isCurrentUser) {
+        <app-comment-actions
+          (deleteClicked)="deleteComment()"
+          (editClicked)="handleEdit()"
+        />
+      } @else {
+        <app-reply-button (clicked)="toggleReply()" class="ml-auto" />
+      }
+    </div>
+  }
 </div>

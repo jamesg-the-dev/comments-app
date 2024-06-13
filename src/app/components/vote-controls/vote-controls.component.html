@@ -1,9 +1,18 @@
 <div
   class="px-2 rounded-lg flex flex-col content-center bg-light-grayish-blue bg-opacity-20"
+  [class.vote--horizontal]="orientation === 'horizontal'"
 >
-  <app-icon-button (clicked)="increase()" [icon]="faPlus" class="text-moderate-blue opacity-45" />
+  <app-icon-button
+    (clicked)="increase()"
+    [icon]="faPlus"
+    class="text-moderate-blue opacity-45"
+  />
   <div class="text-center font-medium text-lg text-moderate-blue opacity-55">
     {{ count }}
   </div>
-  <app-icon-button (clicked)="decrease()" [icon]="faMinus" class="text-moderate-blue opacity-45" />
+  <app-icon-button
+    (clicked)="decrease()"
+    [icon]="faMinus"
+    class="text-moderate-blue opacity-45"
+  />
 </div>

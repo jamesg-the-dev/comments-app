@@ -1,0 +1,21 @@
+<div class="flex justify-between">
+  <app-vote-controls
+    (decreased)="decreaseVote()"
+    (increased)="increaseVote()"
+    [count]="votes"
+    orientation="horizontal"
+  />
+
+  <div class="ml-auto">
+    @if (commentService.isCurrentUser(comment, userId)) {
+      <app-comment-actions
+        (deleteClicked)="commentService.delete(comment.id)"
+      />
+    } @else {
+      <app-reply-button
+        (clicked)="commentService.openReplyBoxFor(comment.parentCommentId)"
+        class="ml-auto"
+      />
+    }
+  </div>
+</div>

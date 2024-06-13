@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AvatarComponent } from '../avatar/avatar.component';
 import { formatDistance } from 'date-fns';
 import { ReplyButtonComponent } from '../reply-button/reply-button.component';
@@ -8,6 +9,7 @@ import { BadgeComponent } from '../badge/badge.component';
 import { CommonModule } from '@angular/common';
 import { CommentActionsComponent } from '../comment-actions/comment-actions.component';
 import { lastValueFrom } from 'rxjs';
+import { MediaScreenService } from '../../services/media-screen.service';
 
 @Component({
   selector: 'app-comment-head',
@@ -26,11 +28,15 @@ export class CommentHeadComponent implements OnInit {
   @Input() user: User;
   @Input() comment: Comment;
   isCurrentUser = false;
+  isSmallScreen = false;
 
   constructor(
     private commentService: CommentService,
     private userService: UserService,
-  ) {}
+    private mediaService: MediaScreenService,
+  ) {
+    this.isSmallScreen = this.mediaService.isSmallScreen;
+  }
 
   ngOnInit(): void {
     const user = this.userService.getCurrentUser();

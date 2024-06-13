@@ -14,6 +14,7 @@ export class VoteControlsComponent {
   @Output() increased = new EventEmitter<void>();
   @Output() decreased = new EventEmitter<void>();
   @Input() count: number = 0; //todo this should be in a service or redux state or something
+  @Input() orientation: 'vertical' | 'horizontal' = 'vertical';
 
   faPlus = faPlus;
   faMinus = faMinus;

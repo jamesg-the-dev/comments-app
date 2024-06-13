@@ -7,11 +7,63 @@ import {
 } from '../comment-body/comment-body.component';
 import { Comment, CommentService } from '../../services/comment.service';
 import { lastValueFrom } from 'rxjs';
+import { MediaScreenService } from '../../services/media-screen.service';
+import { CommentActionsComponent } from '../comment-actions/comment-actions.component';
+import { ReplyButtonComponent } from '../reply-button/reply-button.component';
+import { User, UserService } from '../../services/user.service';
+
+@Component({
+  selector: 'app-mobile-comment-footer',
+  standalone: true,
+  imports: [
+    VoteControlsComponent,
+    CommentActionsComponent,
+    ReplyButtonComponent,
+  ],
+  templateUrl: './mobile-comment-footer.component.html',
+})
+
+/**
+ * TODO Didn't have time to centralise the vote logic in a service. Need to implement later
+ */
+export class MobileCommentFooter {
+  @Input() comment: Comment;
+  votes: number;
+  userId: User['id'];
+
+  constructor(
+    public commentService: CommentService,
+    public mediaService: MediaScreenService,
+    public userService: UserService,
+  ) {}
+
+  ngOnInit() {
+    this.votes = this.comment.votes;
+    const user = this.userService.getCurrentUser();
+    if (!user) return;
+    this.userId = user.id;
+  }
+
+  async updateVote(votes: number) {
+    const { comment } = await lastValueFrom(
+      this.commentService.update(this.comment.id, { votes }),
+    );
+    this.votes = comment.votes;
+  }
+
+  decreaseVote() {
+    this.updateVote(this.votes - 1);
+  }
+
+  increaseVote() {
+    this.updateVote(this.votes + 1);
+  }
+}
 
 @Component({
   selector: 'app-sent-comment',
   standalone: true,
-  imports: [VoteControlsComponent, CommentBodyComponent],
+  imports: [VoteControlsComponent, CommentBodyComponent, MobileCommentFooter],
   templateUrl: './sent-comment.component.html',
   styleUrl: './sent-comment.component.scss',
 })
@@ -21,7 +73,10 @@ export class SentCommentComponent implements OnInit {
   content: CommentContent;
   votes: number;
 
-  constructor(private commentService: CommentService) {}
+  constructor(
+    private commentService: CommentService,
+    public mediaService: MediaScreenService,
+  ) {}
 
   ngOnInit() {
     this.votes = this.comment.votes;
