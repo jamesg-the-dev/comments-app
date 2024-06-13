@@ -23,7 +23,7 @@ export interface CommentUser {
 export interface Comment {
   id: number;
   commentText: string;
-  vote: number;
+  votes: number;
   parentCommentId?: number;
   user: CommentUser;
   createdAt: Date;

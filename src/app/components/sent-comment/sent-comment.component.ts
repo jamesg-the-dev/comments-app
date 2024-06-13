@@ -18,12 +18,16 @@ export class SentCommentComponent implements OnInit {
   @Input() comment: Comment;
   head: CommentHead;
   content: CommentContent;
+  votes: number;
 
   ngOnInit() {
+    this.votes = this.comment.votes;
+
     this.head = {
       username: this.comment.user.username,
       date: this.comment.createdAt,
     };
+
     this.content = this.comment.commentText;
   }
 }
