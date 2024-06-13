@@ -7,7 +7,7 @@ import { CommentSubmitButton } from '../comment-submit-button/comment-submit-but
   selector: 'app-reply-box',
   standalone: true,
   imports: [TextboxComponent, AvatarComponent, CommentSubmitButton],
-  templateUrl: './reply-box.component.html',
-  styleUrl: './reply-box.component.scss',
+  templateUrl: './comment-box.component.html',
+  styleUrl: './comment-box.component.scss',
 })
-export class ReplyBoxComponent {}
+export class CommentBoxComponent {}

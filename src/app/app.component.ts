@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ReplyBoxComponent } from './components/reply-box/reply-box.component';
+import { CommentBoxComponent } from './components/comment-box/comment-box.component';
 import { CommentChainComponent } from './components/comment-chain/comment-chain.component';
 import { CommonModule } from '@angular/common';
 import { UserService } from './services/user.service';
@@ -11,7 +11,7 @@ import { UserService } from './services/user.service';
   imports: [
     RouterOutlet,
     CommentChainComponent,
-    ReplyBoxComponent,
+    CommentBoxComponent,
     CommonModule,
   ],
   templateUrl: './app.component.html',
