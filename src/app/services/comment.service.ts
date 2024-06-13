@@ -28,6 +28,9 @@ export interface UpdateCommentResponse {
   comment: Comment;
 }
 
+//todo put this in utility types file
+type CommonMessage = { message: string };
+
 @Injectable({
   providedIn: 'root',
 })
@@ -35,7 +38,7 @@ export class CommentService {
   constructor(private http: HttpClient) {}
 
   create(userId: number, data: CreatCommentRequest) {
-    return this.http.post<{ message: string }>(
+    return this.http.post<CommonMessage>(
       `${apiiUrl}users/${userId}/comment`,
       data,
     );
@@ -53,7 +56,7 @@ export class CommentService {
   }
 
   delete(id: number) {
-    return this.http.delete<void>(`${apiiUrl}comments/${id}`);
+    return this.http.delete<CommonMessage>(`${apiiUrl}comments/${id}`);
   }
 
   isCurrentUser(comment: Comment, userId: number) {

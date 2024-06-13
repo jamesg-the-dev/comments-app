@@ -131,9 +131,13 @@ app.delete('/comments/:commentId', async (req, res) => {
 
   try {
     await comment.destroy();
-    return res.sendStatus(204);
+    return res.status(200).json({
+      message: 'Comment deleted',
+    });
   } catch (error) {
-    return res.status(500).send('Failed to delete comment');
+    return res.status(500).json({
+      message: 'Error deleting comment',
+    });
   }
 });
 
