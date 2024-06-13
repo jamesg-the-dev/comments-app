@@ -1,7 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const db = require('./db');
+const db = require('../models/index');
 const { body, validationResult } = require('express-validator');
 
 dotenv.config();
@@ -11,7 +11,6 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cors());
-
 const notFound = (res, message) => res.status(404).send({ message });
 const commentNotFound = 'Comment not found';
 
