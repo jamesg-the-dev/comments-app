@@ -27,6 +27,9 @@ To run the app, follow these steps:
 - For the purpose of the test, I decided to create the components from scratch to show my capability. However in an enterprise setting, I would highly consider using a UI framework, depening on the requirements.
 - Overall, I would've liked to centralise more of the code, for example, I realised there are quite a few utility types or methods I could've put into a central file, so I annotated a TODO to fix it later.
 - If I had more time, I would've liked to handle/catch errors better. Most likey with some sort of Toast component.
+- Given more time, I would install storybook.js to aid with testing. I'd also attempt to write feature and e2e tests.
+- Given more time, I would focus more on accessiblity.
+  -Given more time, I would focus on different element states. Such as hover/focus states, which will also contribute to the accessiblity of the application.
 
 ## Acknowledgement
 
