@@ -24,6 +24,7 @@ export interface Comment {
   createdAt: Date;
   updatedAt: Date;
   children?: Comment[];
+  editing?: boolean;
 }
 
 export interface UpdateCommentResponse {

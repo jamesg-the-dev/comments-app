@@ -1,5 +1,11 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
-import { formatDistance } from 'date-fns';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { User, UserService } from '../../../services/user.service';
 import { Comment, CommentService } from '../../../services/comment.service';
 import { MediaScreenService } from '../../../services/media-screen.service';
@@ -11,6 +17,8 @@ import { MediaScreenService } from '../../../services/media-screen.service';
 export class CommentHeadComponent implements OnInit {
   @Input() user: User;
   @Input() comment: Comment;
+
+  @Output() edit = new EventEmitter();
 
   private _commentService = inject(CommentService);
   private _userService = inject(UserService);
@@ -35,7 +43,7 @@ export class CommentHeadComponent implements OnInit {
   }
 
   handleEdit() {
-    console.log("Didn't have time to implement this");
+    this.edit.emit();
   }
 
   toggleReply() {

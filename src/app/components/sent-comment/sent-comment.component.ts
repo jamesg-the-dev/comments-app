@@ -74,7 +74,8 @@ export class MobileCommentFooter {
   templateUrl: './sent-comment.component.html',
 })
 export class SentCommentComponent implements OnInit {
-  @Input() comment: Comment;
+  @Input({ required: true }) comment: Comment;
+  @Input() editing: boolean;
 
   private _commentService = inject(CommentService);
   private _mediaService = inject(MediaScreenService);
@@ -110,5 +111,17 @@ export class SentCommentComponent implements OnInit {
 
   increaseVote() {
     this.updateVote(this.votes + 1);
+  }
+
+  updateComment(value: string) {
+    this._commentService
+      .update(this.comment.id, {
+        comment: value,
+      })
+      .subscribe({
+        next: () => {
+          this._commentService.refreshComments();
+        },
+      });
   }
 }

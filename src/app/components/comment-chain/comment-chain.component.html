@@ -12,7 +12,7 @@
       ></div>
       <div class="w-full">
         @for (reply of comment.children; track reply; let index = $index) {
-          <app-sent-comment [comment]="reply" class="block mt-4" />
+          <app-sent-comment class="block mt-4" [comment]="reply" />
         }
         @if (comment.replying) {
           <app-comment-box

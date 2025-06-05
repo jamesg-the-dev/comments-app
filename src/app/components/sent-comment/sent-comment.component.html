@@ -6,7 +6,7 @@
       (decreased)="decreaseVote()"
     />
   }
-  <app-comment-body [head]="head" [content]="content" class="flex-grow" />
+  <app-comment-body class="flex-grow" [head]="head" [content]="content" (save)="updateComment($event)" />
   @if (isSmallScreen$ | async) {
     <app-mobile-comment-footer [comment]="comment" />
   }

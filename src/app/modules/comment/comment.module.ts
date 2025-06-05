@@ -10,6 +10,9 @@ import { CommentBodyComponent } from './comment-body/comment-body.component';
 import { IconButtonComponent } from '../../components/icon-button/icon-button.component';
 import { CommentBoxComponent } from './comment-box/comment-box.component';
 import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
+import { TextboxComponent } from '../../components/textbox/textbox.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +23,9 @@ import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
   ],
   imports: [
     CommonModule,
+    SharedModule,
+    TextboxComponent,
+    ReactiveFormsModule,
     AvatarComponent,
     ReplyButtonComponent,
     BadgeComponent,

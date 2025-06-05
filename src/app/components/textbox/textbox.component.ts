@@ -1,9 +1,9 @@
 import {
   Component,
-  EventEmitter,
+  ElementRef,
   forwardRef,
   Input,
-  Output,
+  ViewChild,
 } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -25,6 +25,8 @@ import {
   ],
 })
 export class TextboxComponent implements ControlValueAccessor {
+  @ViewChild('input') input: ElementRef<HTMLTextAreaElement>;
+
   @Input() textareaId: string;
   @Input() textareaName: string;
   @Input() placeholder: string;
@@ -54,6 +56,10 @@ export class TextboxComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+  }
+
+  focus() {
+    this.input.nativeElement.focus();
   }
 
   handleInput(event: Event): void {
