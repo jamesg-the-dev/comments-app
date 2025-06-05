@@ -10,7 +10,7 @@
 
   <app-badge *ngIf="isCurrentUser" class="ml-2" text="you" />
 
-  <div class="ml-4">{{ formatedDate() }}</div>
+  <div class="ml-4">{{ comment.createdAt | timeAgo }}</div>
 
   @if (!(isSmallScreen$ | async)) {
     <div class="ml-auto">

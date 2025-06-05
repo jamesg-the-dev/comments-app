@@ -9,6 +9,7 @@ import { CommentHeadComponent } from './comment-head/comment-head.component';
 import { CommentBodyComponent } from './comment-body/comment-body.component';
 import { IconButtonComponent } from '../../components/icon-button/icon-button.component';
 import { CommentBoxComponent } from './comment-box/comment-box.component';
+import { TimeAgoPipe } from '../../pipes/time-ago.pipe';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { CommentBoxComponent } from './comment-box/comment-box.component';
     BadgeComponent,
     IconButtonComponent,
     CommentBoxComponent,
+    TimeAgoPipe,
   ],
   exports: [CommentBodyComponent, CommentActionsComponent],
 })

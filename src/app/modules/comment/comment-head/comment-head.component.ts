@@ -28,11 +28,6 @@ export class CommentHeadComponent implements OnInit {
     );
   }
 
-  formatedDate() {
-    return formatDistance(this.comment.createdAt, new Date()) + ' ago';
-  }
-
-  //todo I think a better approach would be to splice the comments array instead of refreshing the whole lot. Leaving this here for due to time constraints
   deleteComment() {
     this._commentService.delete(this.comment.id).subscribe(() => {
       this._commentService.refreshComments();
@@ -44,10 +39,7 @@ export class CommentHeadComponent implements OnInit {
   }
 
   toggleReply() {
-    if (this.comment.parentCommentId) {
-      this._commentService.openReplyBoxFor(this.comment.parentCommentId);
-    } else {
-      this._commentService.openReplyBoxFor(this.comment.id);
-    }
+    const commentId = this.comment.parentCommentId || this.comment.id;
+    this._commentService.openReplyBoxFor(commentId);
   }
 }
