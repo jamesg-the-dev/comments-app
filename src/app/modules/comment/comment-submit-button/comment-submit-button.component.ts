@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ButtonComponent } from '../button/button.component';
+import { ButtonComponent } from '../../../components/button/button.component';
 
 export type CommentButtonTypes = 'Reply' | 'Update' | 'Send';
 
@@ -7,8 +7,9 @@ export type CommentButtonTypes = 'Reply' | 'Update' | 'Send';
   selector: 'app-reply-button',
   standalone: true,
   imports: [ButtonComponent],
-  templateUrl: './comment-submit-button.component.html',
-  styleUrl: './comment-submit-button.component.scss',
+  template: `<app-button button-type="primary" type="submit">{{
+    text
+  }}</app-button> `,
 })
 export class CommentSubmitButton {
   @Input() text: CommentButtonTypes = 'Reply';

@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ReplyButtonComponent } from './comment-submit-button.component';
+import { ReplyButtonComponent } from '../../../components/reply-button/reply-button.component';
 
 describe('ReplyButtonComponent', () => {
   let component: ReplyButtonComponent;
@@ -8,10 +7,9 @@ describe('ReplyButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReplyButtonComponent]
-    })
-    .compileComponents();
-    
+      imports: [ReplyButtonComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(ReplyButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -4,7 +4,7 @@ import { AvatarComponent } from '../../../components/avatar/avatar.component';
 import {
   CommentButtonTypes,
   CommentSubmitButton,
-} from '../../../components/comment-submit-button/comment-submit-button.component';
+} from '../comment-submit-button/comment-submit-button.component';
 import { ButtonComponent } from '../../../components/button/button.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import {
