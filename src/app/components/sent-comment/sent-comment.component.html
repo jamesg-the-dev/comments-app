@@ -1,9 +1,9 @@
 <div class="container flex gap-5" [class.flex-col]="isSmallScreen$ | async">
   @if (!(isSmallScreen$ | async)) {
     <app-vote-controls
-      (decreased)="decreaseVote()"
-      (increased)="increaseVote()"
       [count]="votes"
+      (increased)="increaseVote()"
+      (decreased)="decreaseVote()"
     />
   }
   <app-comment-body [head]="head" [content]="content" class="flex-grow" />

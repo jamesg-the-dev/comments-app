@@ -5,10 +5,9 @@ import {
   CommentHead,
 } from '../../modules/comment/comment-body/comment-body.component';
 import { Comment, CommentService } from '../../services/comment.service';
-import { lastValueFrom } from 'rxjs';
 import { MediaScreenService } from '../../services/media-screen.service';
 import { ReplyButtonComponent } from '../reply-button/reply-button.component';
-import { User, UserService } from '../../services/user.service';
+import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { CommentModule } from '../../modules/comment/comment.module';
 
@@ -23,10 +22,6 @@ import { CommentModule } from '../../modules/comment/comment.module';
   ],
   templateUrl: './mobile-comment-footer.component.html',
 })
-
-/**
- * TODO Didn't have time to centralise the vote logic in a service. Need to implement later
- */
 export class MobileCommentFooter {
   @Input() comment: Comment;
 
@@ -35,7 +30,7 @@ export class MobileCommentFooter {
   commentService = inject(CommentService);
 
   votes: number;
-  userId: User['id'];
+  userId: number;
 
   ngOnInit() {
     this.votes = this.comment.votes;
@@ -44,11 +39,12 @@ export class MobileCommentFooter {
     this.userId = user.id;
   }
 
-  async updateVote(votes: number) {
-    const { comment } = await lastValueFrom(
-      this.commentService.update(this.comment.id, { votes }),
-    );
-    this.votes = comment.votes;
+  updateVote(votes: number) {
+    this.commentService.update(this.comment.id, { votes }).subscribe({
+      next: res => {
+        this.votes = res.comment.votes;
+      },
+    });
   }
 
   decreaseVote() {
@@ -60,11 +56,9 @@ export class MobileCommentFooter {
   }
 
   toggleReply() {
-    if (this.comment.parentCommentId) {
-      this.commentService.openReplyBoxFor(this.comment.parentCommentId);
-    } else {
-      this.commentService.openReplyBoxFor(this.comment.id);
-    }
+    this.commentService.openReplyBoxFor(
+      this.comment.parentCommentId || this.comment.id,
+    );
   }
 }
 
@@ -102,11 +96,12 @@ export class SentCommentComponent implements OnInit {
     this.content = this.comment.commentText;
   }
 
-  async updateVote(votes: number) {
-    const { comment } = await lastValueFrom(
-      this._commentService.update(this.comment.id, { votes }),
-    );
-    this.votes = comment.votes;
+  updateVote(votes: number) {
+    this._commentService.update(this.comment.id, { votes }).subscribe({
+      next: res => {
+        this.votes = res.comment.votes;
+      },
+    });
   }
 
   decreaseVote() {

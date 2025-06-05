@@ -39,7 +39,8 @@ export class CommentHeadComponent implements OnInit {
   }
 
   toggleReply() {
-    const commentId = this.comment.parentCommentId || this.comment.id;
-    this._commentService.openReplyBoxFor(commentId);
+    this._commentService.openReplyBoxFor(
+      this.comment.parentCommentId || this.comment.id,
+    );
   }
 }
