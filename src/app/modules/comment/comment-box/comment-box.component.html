@@ -1,16 +1,16 @@
 <form
+  class="container"
   (keydown.control.enter)="submit()"
   (submit)="$event.preventDefault(); submit()"
-  class="container"
 >
   <div class="flex gap-3">
     <app-avatar
-      [src]="avatarSrc"
       alt="Avatar Image"
       title="User's Avatar"
-      [size]="45"
       classNames="rounded-circle"
       containerClass="avatar-container"
+      [src]="avatarSrc"
+      [size]="45"
     />
 
     <app-textbox

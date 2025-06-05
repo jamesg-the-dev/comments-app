@@ -7,7 +7,6 @@ import { IconButtonComponent } from '../icon-button/icon-button.component';
   standalone: true,
   imports: [IconButtonComponent],
   templateUrl: './vote-controls.component.html',
-  styleUrl: './vote-controls.component.scss',
 })
 export class VoteControlsComponent {
   @Output() increased = new EventEmitter<void>();

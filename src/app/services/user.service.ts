@@ -17,19 +17,23 @@ export interface User {
 export class UserService {
   private _http = inject(HttpClient);
 
-  readonly user$ = new BehaviorSubject<User | null>(null);
+  private _user = new BehaviorSubject<User | null>(null);
+  user$ = this._user.asObservable();
 
+  /**
+   * Mocks a very basic user login and sets a value for the user subject
+   */
   mockLogIn$() {
     return this._http
       .get<{ message: string; user: User }>(`${apiiUrl}users/${defaultUserId}`)
       .pipe(
         tap(({ user }) => {
-          this.user$.next(user);
+          this._user.next(user);
         }),
       );
   }
 
   getCurrentUser() {
-    return this.user$.getValue();
+    return this._user.getValue();
   }
 }
