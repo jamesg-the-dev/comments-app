@@ -1,11 +1,27 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  HostBinding,
+  Input,
+  Output,
+} from '@angular/core';
 
 @Component({
   selector: 'app-button',
   standalone: true,
-  imports: [],
-  templateUrl: './button.component.html',
-  styleUrl: './button.component.scss',
+  imports: [CommonModule],
+  template: `<button
+    class="btn"
+    [type]="type"
+    [disabled]="disabled"
+    [ngClass]="['btn--' + buttonType, 'btn--' + size, classes]"
+    [attr.aria-label]="ariaLabel"
+    [attr.aria-describedby]="ariaDescribedBy"
+    (click)="onClick()"
+  >
+    <ng-content></ng-content>
+  </button> `,
 })
 export class ButtonComponent {
   @Input() type = 'button';
@@ -22,7 +38,8 @@ export class ButtonComponent {
     this.clicked.emit();
   }
 
-  classes() {
-    return typeof this.classNames === undefined ? '' : this.classNames;
+  @HostBinding('class')
+  get classes(): string {
+    return this.classNames ?? '';
   }
 }

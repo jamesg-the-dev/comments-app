@@ -3,9 +3,12 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-badge',
   standalone: true,
-  imports: [],
-  templateUrl: './badge.component.html',
-  styleUrl: './badge.component.scss',
+  template: `<div
+    class="text-white px-2 rounded-sm text-sm"
+    [style.backgroundColor]="color"
+  >
+    {{ text }}
+  </div> `,
 })
 export class BadgeComponent {
   @Input() text: string;

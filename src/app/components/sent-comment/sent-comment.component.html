@@ -1,5 +1,5 @@
-<div class="container flex gap-5" [class.flex-col]="mediaService.isSmallScreen">
-  @if (!mediaService.isSmallScreen) {
+<div class="container flex gap-5" [class.flex-col]="isSmallScreen$ | async">
+  @if (!(isSmallScreen$ | async)) {
     <app-vote-controls
       (decreased)="decreaseVote()"
       (increased)="increaseVote()"
@@ -7,7 +7,7 @@
     />
   }
   <app-comment-body [head]="head" [content]="content" class="flex-grow" />
-  @if (mediaService.isSmallScreen) {
+  @if (isSmallScreen$ | async) {
     <app-mobile-comment-footer [comment]="comment" />
   }
 </div>

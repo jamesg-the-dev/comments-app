@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
 
@@ -13,7 +12,7 @@ import { IconButtonComponent } from '../icon-button/icon-button.component';
 export class VoteControlsComponent {
   @Output() increased = new EventEmitter<void>();
   @Output() decreased = new EventEmitter<void>();
-  @Input() count: number = 0; //todo this should be in a service or redux state or something
+  @Input() count: number = 0;
   @Input() orientation: 'vertical' | 'horizontal' = 'vertical';
 
   faPlus = faPlus;

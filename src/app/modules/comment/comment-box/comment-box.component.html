@@ -14,12 +14,9 @@
     />
 
     <app-textbox
-      (valueChange)="onValueChange($event)"
       class="flex-grow"
       placeholder="Add a comment..."
-      [textareaId]="'textareaId'"
-      [textareaName]="'textareaName'"
-      [ariaDescribedBy]="'ariaDescribedBy'"
+      [formControl]="commentText"
     />
 
     <div>

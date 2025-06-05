@@ -1,16 +1,22 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Injectable } from '@angular/core';
+import {
+  BreakpointObserver,
+  Breakpoints,
+  BreakpointState,
+} from '@angular/cdk/layout';
+import { inject, Injectable } from '@angular/core';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MediaScreenService {
-  private _isSmallScreen = false;
-  constructor(private breakPointObserver: BreakpointObserver) {
-    this._isSmallScreen = this.breakPointObserver.isMatched(Breakpoints.XSmall);
-  }
+  private _breakPointObserver = inject(BreakpointObserver);
 
-  get isSmallScreen() {
-    return this._isSmallScreen;
+  readonly isSmallScreen$: Observable<boolean>;
+
+  constructor() {
+    this.isSmallScreen$ = this._breakPointObserver
+      .observe(Breakpoints.XSmall)
+      .pipe(map((obs) => obs.matches));
   }
 }

@@ -11,5 +11,7 @@
   [attr.aria-required]="required ? 'true' : 'false'"
   [attr.aria-readonly]="readonly ? 'true' : 'false'"
   [attr.aria-disabled]="disabled ? 'true' : 'false'"
-  [formControl]="value"
+  [value]="value"
+  (input)="handleInput($event)"
+  (blur)="onTouched()"
 ></textarea>

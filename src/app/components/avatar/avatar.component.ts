@@ -5,8 +5,17 @@ import { Component, Input } from '@angular/core';
   selector: 'app-avatar',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './avatar.component.html',
-  styleUrl: './avatar.component.scss',
+  template: `<div [class]="containerClass">
+    <img
+      *ngIf="src"
+      [src]="src"
+      [alt]="alt"
+      [title]="title"
+      [class]="classNames"
+      [width]="size"
+      [height]="size"
+    />
+  </div> `,
 })
 export class AvatarComponent {
   @Input() src: string;

@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { CommentHeadComponent } from '../comment-head/comment-head.component';
 import { CommentContentComponent } from '../comment-content/comment-content.component';
-import { User } from '../../services/user.service';
-import { Comment } from '../../services/comment.service';
+import { User } from '../../../services/user.service';
+import { Comment } from '../../../services/comment.service';
 
 export interface CommentHead {
   user: User;
@@ -13,12 +13,12 @@ export type CommentContent = string;
 
 @Component({
   selector: 'app-comment-body',
-  standalone: true,
-  imports: [CommentHeadComponent, CommentContentComponent],
-  templateUrl: './comment-body.component.html',
-  styleUrl: './comment-body.component.scss',
+  template: `<div class="text-grayish-blue">
+    <app-comment-head [user]="head.user" [comment]="head.comment" />
+    <app-comment-content class="mt-3 block" [text]="content" />
+  </div> `,
 })
 export class CommentBodyComponent {
   @Input() head: CommentHead;
-  @Input() content: CommentContent;
+  @Input() content: string;
 }

@@ -1,14 +1,30 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  Output,
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-textbox',
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './textbox.component.html',
-  styleUrl: './textbox.component.scss',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => TextboxComponent),
+      multi: true,
+    },
+  ],
 })
-export class TextboxComponent implements OnInit {
+export class TextboxComponent implements ControlValueAccessor {
   @Input() textareaId: string;
   @Input() textareaName: string;
   @Input() placeholder: string;
@@ -19,33 +35,30 @@ export class TextboxComponent implements OnInit {
   @Input() readonly: boolean;
   @Input() ariaDescribedBy: string;
 
-  @Output() valueChange = new EventEmitter<string>();
+  value: string = '';
 
-  value = new FormControl<string>('');
+  onChange = (value: string) => {};
+  onTouched = () => {};
 
-  ngOnInit(): void {
-    this.toggleDisabled();
-
-    this.value.valueChanges.subscribe((value) => {
-      if (value) {
-        this.valueChange.emit(value);
-      }
-    });
+  writeValue(value: string): void {
+    this.value = value || '';
   }
 
-  onInputChange(value: string) {
-    this.valueChange.emit(value);
+  registerOnChange(fn: (value: string) => void): void {
+    this.onChange = fn;
   }
 
-  resetValue() {
-    this.value.reset();
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
   }
 
-  toggleDisabled() {
-    if (this.disabled) {
-      this.value.disable();
-    } else {
-      this.value.enable();
-    }
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  handleInput(event: Event): void {
+    const target = event.target as HTMLTextAreaElement;
+    this.value = target.value;
+    this.onChange(this.value);
   }
 }

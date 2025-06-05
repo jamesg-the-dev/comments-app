@@ -1,14 +1,14 @@
 @for (comment of comments; track comment; let index = $index) {
   <app-sent-comment
-    [comment]="comment"
     class="block"
     [class.mt-4]="index !== 0"
+    [comment]="comment"
   />
 
   @if ((comment.children && comment.children.length > 0) || comment.replying) {
     <div class="flex">
       <div
-        class="bg-light-grayish-blue mt-4 md:mx-10 mx-3 w-2 bg-opacity-25"
+        class="bg-light-grayish-blue mt-4 md:mx-10 mx-3 w-1 bg-opacity-25"
       ></div>
       <div class="w-full">
         @for (reply of comment.children; track reply; let index = $index) {

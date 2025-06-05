@@ -1,35 +1,32 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { CommentBoxComponent } from './components/comment-box/comment-box.component';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommentChainComponent } from './components/comment-chain/comment-chain.component';
 import { CommonModule } from '@angular/common';
 import { UserService } from './services/user.service';
+import { CommentBoxComponent } from './modules/comment/comment-box/comment-box.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    RouterOutlet,
-    CommentChainComponent,
-    CommentBoxComponent,
-    CommonModule,
-  ],
+  imports: [CommentChainComponent, CommonModule, CommentBoxComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
 })
-export class AppComponent {
-  title = 'comments-app';
+export class AppComponent implements OnInit {
+  private _userService = inject(UserService);
+
   userLoaded = false;
   avatar = '';
 
-  constructor(public userService: UserService) {
+  ngOnInit(): void {
     this.mockLogin();
   }
 
   /** This is a method that kind of mocks a login so it can globally set the "current user" */
-  async mockLogin() {
-    await this.userService.mockLogIn();
-    this.userLoaded = true;
-    this.avatar = this.userService.getCurrentUser()?.profilePic ?? '';
+  mockLogin() {
+    this._userService.mockLogIn$().subscribe({
+      next: () => {
+        this.userLoaded = true;
+        this.avatar = this._userService.getCurrentUser()?.profilePic ?? '';
+      },
+    });
   }
 }

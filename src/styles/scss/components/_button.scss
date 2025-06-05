@@ -1,33 +1,37 @@
-/**
-* ideally we should centralise the sizes. Due to time constraints, I will leave it as is
-*/
+$btn-sizes: (
+  sm: (
+    padding: 0.25rem 0.5rem,
+    font-size: 0.75rem,
+  ),
+  md: (
+    padding: 0.5rem 1rem,
+    font-size: 1rem,
+  ),
+  lg: (
+    padding: 0.75rem 1.5rem,
+    font-size: 1.25rem,
+  ),
+);
 
 .btn {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
   border-radius: 0.4em;
 
-  &#{&}--sm {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
+  padding: map-get(map-get($btn-sizes, md), padding);
+  font-size: map-get(map-get($btn-sizes, md), font-size);
+
+  @each $size, $props in $btn-sizes {
+    &--#{$size} {
+      padding: map-get($props, padding);
+      font-size: map-get($props, font-size);
+    }
   }
 
-  &#{&}--md {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-  }
-
-  &#{&}--lg {
-    padding: 0.75rem 1.5rem;
-    font-size: 1.25rem;
-  }
-
-  &.btn--primary {
+  &--primary {
     background-color: $moderate-blue;
     color: $white;
   }
 
-  &.btn--tertiary {
+  &--tertiary {
     background-color: transparent;
     color: inherit;
     text-decoration: underline;

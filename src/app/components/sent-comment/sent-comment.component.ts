@@ -1,24 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { VoteControlsComponent } from '../vote-controls/vote-controls.component';
 import {
-  CommentBodyComponent,
   CommentContent,
   CommentHead,
-} from '../comment-body/comment-body.component';
+} from '../../modules/comment/comment-body/comment-body.component';
 import { Comment, CommentService } from '../../services/comment.service';
 import { lastValueFrom } from 'rxjs';
 import { MediaScreenService } from '../../services/media-screen.service';
-import { CommentActionsComponent } from '../comment-actions/comment-actions.component';
 import { ReplyButtonComponent } from '../reply-button/reply-button.component';
 import { User, UserService } from '../../services/user.service';
+import { CommonModule } from '@angular/common';
+import { CommentModule } from '../../modules/comment/comment.module';
 
 @Component({
   selector: 'app-mobile-comment-footer',
   standalone: true,
   imports: [
+    CommonModule,
     VoteControlsComponent,
-    CommentActionsComponent,
     ReplyButtonComponent,
+    CommentModule,
   ],
   templateUrl: './mobile-comment-footer.component.html',
 })
@@ -28,18 +29,17 @@ import { User, UserService } from '../../services/user.service';
  */
 export class MobileCommentFooter {
   @Input() comment: Comment;
+
+  private _userService = inject(UserService);
+
+  commentService = inject(CommentService);
+
   votes: number;
   userId: User['id'];
 
-  constructor(
-    public commentService: CommentService,
-    public mediaService: MediaScreenService,
-    public userService: UserService,
-  ) {}
-
   ngOnInit() {
     this.votes = this.comment.votes;
-    const user = this.userService.getCurrentUser();
+    const user = this._userService.getCurrentUser();
     if (!user) return;
     this.userId = user.id;
   }
@@ -71,20 +71,25 @@ export class MobileCommentFooter {
 @Component({
   selector: 'app-sent-comment',
   standalone: true,
-  imports: [VoteControlsComponent, CommentBodyComponent, MobileCommentFooter],
+  imports: [
+    CommonModule,
+    VoteControlsComponent,
+    CommentModule,
+    MobileCommentFooter,
+  ],
   templateUrl: './sent-comment.component.html',
-  styleUrl: './sent-comment.component.scss',
 })
 export class SentCommentComponent implements OnInit {
   @Input() comment: Comment;
+
+  private _commentService = inject(CommentService);
+  private _mediaService = inject(MediaScreenService);
+
   head: CommentHead;
   content: CommentContent;
   votes: number;
 
-  constructor(
-    private commentService: CommentService,
-    public mediaService: MediaScreenService,
-  ) {}
+  isSmallScreen$ = this._mediaService.isSmallScreen$;
 
   ngOnInit() {
     this.votes = this.comment.votes;
@@ -99,7 +104,7 @@ export class SentCommentComponent implements OnInit {
 
   async updateVote(votes: number) {
     const { comment } = await lastValueFrom(
-      this.commentService.update(this.comment.id, { votes }),
+      this._commentService.update(this.comment.id, { votes }),
     );
     this.votes = comment.votes;
   }

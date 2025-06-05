@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { apiiUrl } from '../utilities/globals';
 import { User } from './user.service';
 import { BehaviorSubject } from 'rxjs';
+import { CommonMessage } from '../interfaces/http.interface';
 
 export interface CreateCommentRequest {
   comment: string;
@@ -30,38 +31,39 @@ export interface UpdateCommentResponse {
   comment: Comment;
 }
 
-//todo put this in utility types file
-type CommonMessage = { message: string };
-
 @Injectable({
   providedIn: 'root',
 })
 export class CommentService {
-  private comments$ = new BehaviorSubject<Comment[]>([]);
-  _comments = this.comments$.asObservable();
+  private _http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {}
+  private _comments = new BehaviorSubject<Comment[]>([]);
+  comments$ = this._comments.asObservable();
+
+  get comments() {
+    return this._comments.value;
+  }
 
   create(userId: number, data: CreateCommentRequest) {
-    return this.http.post<CommonMessage>(
+    return this._http.post<CommonMessage>(
       `${apiiUrl}users/${userId}/comment`,
       data,
     );
   }
 
   retrieveAll() {
-    return this.http.get<Comment[]>(`${apiiUrl}comments`);
+    return this._http.get<Comment[]>(`${apiiUrl}comments`);
   }
 
   update(commentId: number, data: UpdateCommentRequest) {
-    return this.http.put<UpdateCommentResponse>(
+    return this._http.put<UpdateCommentResponse>(
       `${apiiUrl}comments/${commentId}`,
       data,
     );
   }
 
   delete(id: number) {
-    return this.http.delete<CommonMessage>(`${apiiUrl}comments/${id}`);
+    return this._http.delete<CommonMessage>(`${apiiUrl}comments/${id}`);
   }
 
   isCurrentUser(comment: Comment, userId: number) {
@@ -69,18 +71,30 @@ export class CommentService {
   }
 
   refreshComments() {
-    this.retrieveAll().subscribe((comments) => {
-      this.comments$.next(comments);
+    this.retrieveAll().subscribe(comments => {
+      this._comments.next(comments);
     });
   }
 
-  get comments() {
-    return this.comments$.value;
+  /**
+   * Opens the reply box for a parent comment
+   */
+  openReplyBoxFor(commentParentId: number) {
+    const index = this.getParentCommentIndex(commentParentId);
+    this.comments[index].replying = true;
   }
 
-  private getParentCommentIndex(parentCommentId: Comment['parentCommentId']) {
+  /**
+   * Closes the reply box for a parent comment
+   */
+  closeReplyBoxFor(commentParentId: number) {
+    const index = this.getParentCommentIndex(commentParentId);
+    this.comments[index].replying = false;
+  }
+
+  private getParentCommentIndex(parentCommentId: number) {
     const parentCommentIndex = this.comments.findIndex(
-      (comment) => comment.id === parentCommentId,
+      comment => comment.id === parentCommentId,
     );
 
     if (parentCommentIndex === -1) {
@@ -88,15 +102,5 @@ export class CommentService {
     }
 
     return parentCommentIndex;
-  }
-
-  openReplyBoxFor(commentParentId: Comment['parentCommentId']) {
-    const index = this.getParentCommentIndex(commentParentId);
-    this.comments[index].replying = true;
-  }
-
-  closeReplyBoxFor(commentParentId: Comment['parentCommentId']) {
-    const index = this.getParentCommentIndex(commentParentId);
-    this.comments[index].replying = false;
   }
 }

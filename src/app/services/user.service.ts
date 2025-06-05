@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, last, lastValueFrom } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { BehaviorSubject, tap } from 'rxjs';
 import { apiiUrl, defaultUserId } from '../utilities/globals';
 
 export interface User {
@@ -15,16 +15,18 @@ export interface User {
   providedIn: 'root',
 })
 export class UserService {
-  private user$ = new BehaviorSubject<User | null>(null);
+  private _http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {}
+  readonly user$ = new BehaviorSubject<User | null>(null);
 
-  async mockLogIn() {
-    const request = this.http.get<{ message: string; user: User }>(
-      `${apiiUrl}users/${defaultUserId}`,
-    );
-    const { user } = await lastValueFrom(request);
-    this.user$.next(user);
+  mockLogIn$() {
+    return this._http
+      .get<{ message: string; user: User }>(`${apiiUrl}users/${defaultUserId}`)
+      .pipe(
+        tap(({ user }) => {
+          this.user$.next(user);
+        }),
+      );
   }
 
   getCurrentUser() {
