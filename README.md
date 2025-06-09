@@ -8,6 +8,10 @@ This app allows a user to add, remove, reply, vote and edit a comment. It has a 
 
 - node v20.13.1
 
+## Notes
+
+- Some components may seem a little overkill for a small app like this, e.g. `app-textbox` could've just been a vanilla HTML textarea. However, I decided to try and mimic creating/using a component library.
+
 ## Showcase
 
 To run the app, follow these steps:
