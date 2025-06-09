@@ -2,15 +2,11 @@
 
 ## Overview
 
-This app allows a user to add, remove, reply, vote and edit a comment (however I didn't have enough time to implement the edit feature). It has a lightweight server running in node and is hooked up to an sqlite database.
+This app allows a user to add, remove, reply, vote and edit a comment. It has a lightweight server running in node and is hooked up to an sqlite database.
 
 ## Prerequisites
 
 - node v20.13.1
-
-## Note
-
-I'm not expecting a review for the nodeJS part as it wasn't part of the discussion I had with Sean. However, I thought it would be a good way to display how I might create a full application and integrate APIs using angular.
 
 ## Showcase
 
