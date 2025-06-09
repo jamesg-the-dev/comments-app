@@ -16,11 +16,11 @@ This app allows a user to add, remove, reply, vote and edit a comment. It has a 
 
 To run the app, follow these steps:
 
-- run `npm install` in the root directory (this is for the frontend)
-- cd into `server` directory and run `npm install`
-- in the `server` directory, run `npm run startup`. This will create the db and seed some data
-- finally in the `server` directory, run `npm run dev`
-- cd back into the root directory and run `npm start`
+- run `npm install` in the root directory (this is for the frontend).
+- cd into `server` directory and run `npm install`.
+- in the `server` directory, run `npm run startup`. This will create the db and seed some data.
+- finally in the `server` directory, run `npm run dev`. Keep this running.
+- in a new terminal run `npm start` in the root directory.
 
 ## Acknowledgement
 
